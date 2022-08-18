@@ -4,6 +4,7 @@
     <Continentes />
     <Buscador />
     <CardList />
+    <Usuario/>
   </div>
 </template>
 
@@ -11,11 +12,16 @@
 import CardList from './components/CardList'
 import Continentes from './components/Continentes'
 import Buscador from './components/Buscador'
+import Usuario from './components/Usuario.vue'
+
 
 export default {
   name: 'App',
   components: {
-    CardList, Continentes, Buscador
-  }
+    CardList,
+    Continentes,
+    Buscador,
+    Usuario
+}
 }
 </script>

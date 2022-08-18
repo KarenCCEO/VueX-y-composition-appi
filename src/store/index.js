@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     paises: [],
-    paisesFiltrados: []
+    paisesFiltrados: [],
+    users:[]
   },
   mutations: {
     setPaises(state, payload) {
@@ -11,18 +12,32 @@ export default createStore({
     },
     setPaisesFiltrados(state, payload) {
       state.paisesFiltrados = payload
+    },
+    setUsers(state, payload){
+      state.users=payload
     }
   },
   actions: {
     async getPaises({ commit }) {
       try {
-        const res = await fetch('api.json')
+        const res = await fetch('http://127.0.0.1:8000/api/countries')
         const data = await res.json()
-        // console.log(data)
+        //console.log(data)
         commit('setPaises', data)
       } catch (error) {
         console.log(error)
       }
+    },
+    async getUsers({commit}){
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/users')
+        const data = await res.json()
+        //console.log(data)
+        commit('setUsers', data)
+      } catch (error) {
+        console.log(error)
+      }
+
     },
     filtrarRegion({ commit, state }, region) {
       const filtro = state.paises.filter(pais => 
@@ -41,6 +56,7 @@ export default createStore({
       commit('setPaisesFiltrados', filtro)
     }
   },
+  
   getters: {
     topPaisesPoblacion(state) {
       return state.paisesFiltrados.sort((a, b) =>
